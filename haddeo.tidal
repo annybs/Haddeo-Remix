@@ -2,12 +2,26 @@ let bpm b = cps (b/60)
 let withmod a b c d = (whenmod a b . within (c, d))
 let every' n o f = when ((== (o-1)) . (`mod` n)) f
 
+let modtempo s e = (# nudge (scale 0 s $ fmap (**e) saw1))
+let mt s d i = slow s . modtempo 0.125 8 $ density d $ i
+
 -- original bpm = 105
 bpm 105
 
-d1 $ n "{1/4, 0}" # s "drum"
+-- drum
 
-d1 $ n "{1/4, [0 ~ 0*2 [~ ~ ~ 0]]/4}" # s "drum"
+d1 $ slow 8 $ n "[1*2, 0*8]" # s "drum"
+d1 $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d1 $ mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d1 $
+  (whenmod 5 3 . every' 7 5) (0.5 ~>) $
+  slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d1 $
+  (whenmod 5 3 . every' 7 5) (0.5 ~>) $
+  mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
 
 d2 $ n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
 
@@ -26,48 +40,53 @@ d2 $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
 
 d2 $
-  every' 32 32 (const $ s "kit:3") $
+  every' 16 8 (const $ s "kit:3") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
 
-d3 $ s "icarus/16"
+-- icarus
+
+d3 $ slow 16 . striate 256 $ s "icarus"
 
 d3 $
-  slow 8 $
-  smash 64 [0.5,0.75] $
-  s "icarus"
+  (# nudge (scale 0 0.5 $ slow 7 sine1)) $
+  slow 16 $ striate 256 $ s "icarus"
 
 d3 $
   off 0.5 (slow 1.5) $
-  slow 8 $
-  smash 64 [0.5,0.75] $
+  (# nudge (scale 0 0.5 $ slow 7 sine1)) $
+  slow 16 $ striate 256 $ s "icarus"
+
+d3 $
+  off 0.5 (slow 1.5) $
+  slow 8 $ smash 64 [0.5,0.75] $
   s "icarus"
 
-d4 $ slow 16 $ n "[0 1]/2" # s "nimble"
+-- nimble
 
-d4 $
-  superimpose (iter 4) $
+d4 $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+
+d4 $ whenmod 4 3 rev $
+  slow 16 $ striate 128 $ n "[0 1]/2" # s "nimble"
+
+d4 $ superimpose (iter 5) $
   whenmod 4 3 rev $
-  slow 16 $ striate 128 $
-  n "[0 1]/2" # s "nimble"
+  slow 16 $ striate 128 $ n "[0 1]/2" # s "nimble"
 
-d4 $
-  superimpose (iter 4) $
+d4 $ superimpose (iter 5) $
   whenmod 4 3 rev $
-  slow 16 $ striate 128 $
-  n "[0 1]/2" # s "nimble"
-  # speed ((+0.4).(/1.5) <$> slow 16 saw1)
+  slow 16 $ striate 128 $ n "[0 1]/2" # s "nimble"
+  # speed ((+0.8).(/1.5) <$> slow 2.5 sine1)
 
-{-
-d4 $
-  (# speed "[-1 1]/3") $
-  superimpose (iter 4) $
+d4 $ superimpose (iter 5) $
   whenmod 4 3 rev $
-  slow 16 $ striate 128 $
-  n "[0 1]/2" # s "nimble"
--}
+  mt 16 1 $ striate 128 $ n "[0 1]/2" # s "nimble"
+  # speed ((+0.8).(/1.5) <$> slow 2.5 sine1)
 
-:t preplace
+d3 silence
+
+d4 $ whenmod 4 3 rev $
+  mt 16 1 $ striate 128 $ n "[0 1]/2" # s "nimble"
 
 hush
