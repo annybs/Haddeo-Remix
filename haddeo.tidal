@@ -15,14 +15,6 @@ d1 $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
 
 d1 $ mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
 
-d1 $
-  (whenmod 5 3 . every' 7 5) (0.5 ~>) $
-  slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
-
-d1 $
-  (whenmod 5 3 . every' 7 5) (0.5 ~>) $
-  mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
-
 d2 $ n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
 
 d2 $
@@ -50,41 +42,92 @@ d2 $
 d3 $ slow 16 . striate 256 $ s "icarus"
 
 d3 $
-  (# nudge (scale 0 0.5 $ slow 7 sine1)) $
-  slow 16 $ striate 256 $ s "icarus"
+  every' 2 2 (within (0, 0.75) (iter 16)) $
+  slow 16 . striate 256 $ s "icarus"
 
+{-
 d3 $
-  off 0.5 (slow 1.5) $
-  (# nudge (scale 0 0.5 $ slow 7 sine1)) $
-  slow 16 $ striate 256 $ s "icarus"
-
-d3 $
-  off 0.5 (slow 1.5) $
   slow 8 $ smash 64 [0.5,0.75] $
   s "icarus"
+-}
 
 -- nimble
 
 d4 $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
 
-d4 $ whenmod 4 3 rev $
-  slow 16 $ striate 128 $ n "[0 1]/2" # s "nimble"
+d4 $ superimpose (iter 4) $
+  slow 16 $ striate 256 $ n "[0 1]/2" # s "nimble"
 
-d4 $ superimpose (iter 5) $
-  whenmod 4 3 rev $
-  slow 16 $ striate 128 $ n "[0 1]/2" # s "nimble"
+d4 $
+  superimpose (
+    iter 4 .
+    (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
+    ) $
+  slow 16 $ striate 256 $ n "[0 1]/2" # s "nimble"
 
-d4 $ superimpose (iter 5 . (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))) $
-  whenmod 4 3 rev $
-  slow 16 $ striate 128 $ n "[0 1]/2" # s "nimble"
-
-d4 $ superimpose (iter 5 . (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1)) . (# nudge "0")) $
-  whenmod 4 3 rev $
-  mt 16 1 $ striate 128 $ n "[0 1]/2" # s "nimble"
+d4 $
+  superimpose (
+    iter 4 .
+    (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1)) .
+    (# nudge "0")
+    ) $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
 
 d3 silence
+d4 $ mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
 
-d4 $ whenmod 4 3 rev $
-  mt 16 1 $ striate 128 $ n "[0 1]/2" # s "nimble"
+d4 $ whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
 
+d4 $
+  superimpose (
+    iter 4 .
+    (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1)) .
+    (# nudge "0")
+    ) $
+  whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d4 $
+  every' 2 2 (within (0, 0.5) (const silence)) $
+  superimpose (
+    iter 4 .
+    (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1)) .
+    (# nudge "0")
+    ) $
+  whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d4 $
+  every' 2 2 (within (0.25, 0.5) (const silence)) $
+  superimpose (
+    iter 4 .
+    (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1)) .
+    (# nudge "0")
+    ) $
+  whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+-- something of a structure starting to come together here
+
+d1 $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d1 $
+  (whenmod 5 3 . every' 7 5) (0.5 ~>) $
+  slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d1 $
+  (whenmod 5 3 . every' 7 5) (0.5 ~>) $
+  mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d3 $
+  every' 2 2 (within (0, 0.75) (iter 16)) $
+  slow 16 . striate 256 $ s "icarus"
+
+d4 $
+  every' 2 2 (within (0.25, 0.5) (const silence)) $
+  whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d4 silence
 hush
