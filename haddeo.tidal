@@ -153,28 +153,14 @@ d4 $
 
 d5 $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
 
-d1 silence
-
-{-???
-d1 $ stack [
-  n "[1, 0*2 [~! 0 ~] [~ 0 ~!] ~]/4" # s "drum",
-  n "[~ 1]/2" # s "sn"
-  ]
--}
-
 d1 $ stack [
   n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  n "[~ 1]/2" # s "sn"
+  n "[~ 0]/2" # s "sn"
   ]
 
 d1 $ stack [
   n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  4 ~> n "[~ 1 [~ 1/2 ~!] 1]/4" # s "sn"
-  ]
-
-d1 $ stack [
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  8 ~> n "[~ [1 ~ ~ 1/4] [~ 1/2 ~!] 1]/4" # s "sn"
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
   ]
 
 -- heh
@@ -216,8 +202,120 @@ d5 $
 
 d1 $ mt 16 16 $ stack [
   n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  4 ~> n "[~ 1 [~ 1/2 ~!] 1]/4" # s "sn"
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
   ]
 
+-- some other ideas
+
+d1 $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+d1 $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  whenmod 5 3 (
+    superimpose (
+       within (0, 0.5) (
+          (# gain "0.7") .
+          (# n (irand 3)) .
+          (# s "tom")
+          ) .
+       (# gain "0.8") .
+       (0.25 ~>) . density 2
+       )
+    ) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+d1 $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  whenmod 7 6 (slowspread ($) [density 4 . rev . slow 4, id, (0.25 ~>)]) $
+  whenmod 5 3 (
+    superimpose (
+       within (0, 0.5) (
+          (# gain "0.7") .
+          (# n (irand 3)) .
+          (# s "tom")
+          ) .
+       (# gain "0.8") .
+       (0.25 ~>) . density 2
+       )
+    ) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+d4 $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+
+d6 $
+  every' 3 2 rev $
+  (2 <~) $
+  slow 16 $ striate 32 $ n "[0 1]/2" # s "nimble"
+  # speed "0.55"
+
+-- nailed it
+d7 $
+  whenmod 16 8 (0.5 ~>) $
+  slow 8 $
+  slowspread ($) [gap 16, striate 8] $
+  n "[0 1]/2" # s "nimble"
+  # speed "[-3 -2]"
+  # gain "0.9"
+
+{-
+d7 $
+  within (0, 0.75) (density (5%3) . sometimes (0.5 <~)) $
+  whenmod 16 8 (0.5 ~>) $
+  slow 8 $
+  slowspread ($) [gap 16, striate 8] $
+  n "[0 1]/2" # s "nimble"
+  # speed "[-3 -2]"
+-}
+
+d1 $ stack [
+  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+d1 $ stack [
+  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
+  whenmod 7 6 (slowspread ($) [density 4 . rev . slow 4, id, (0.25 ~>)]) $
+  whenmod 5 3 (
+    superimpose (
+       within (0, 0.5) (
+          (# gain "0.7") .
+          (# n (irand 3)) .
+          (# s "tom")
+          ) .
+       (# gain "0.8") .
+       (0.25 ~>) . density 2
+       )
+    ) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+d1 $ slow 16 . modtempo 0.6 4 $ density 16 $ stack [
+  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
+  whenmod 7 6 (slowspread ($) [density 4 . rev . slow 4, id, (0.25 ~>)]) $
+  whenmod 5 3 (
+    superimpose (
+       within (0, 0.5) (
+          (# gain "0.7") .
+          (# n (irand 3)) .
+          (# s "tom")
+          ) .
+       (# gain "0.8") .
+       (0.25 ~>) . density 2
+       )
+    ) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+-- could be a good outro
+d1 $ slow 16 . modtempo 0.6 4 $ density 16 $
+  stack [
+  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
 
 hush
