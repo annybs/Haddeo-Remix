@@ -247,6 +247,13 @@ d1 $ stack [
 
 d4 $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
 
+d4 $ (0.5 ~>) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+
+d4 $ superimpose ((1 <~) . (# vowel "e a")) $
+  (0.5 ~>) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+
 d6 $
   every' 3 2 rev $
   (2 <~) $
@@ -260,7 +267,6 @@ d7 $
   slowspread ($) [gap 16, striate 8] $
   n "[0 1]/2" # s "nimble"
   # speed "[-3 -2]"
-  # gain "0.9"
 
 d7 $
   whenmod 5 2 (density (5%3)) $
@@ -269,7 +275,6 @@ d7 $
   slowspread ($) [gap 16, striate 8] $
   n "[0 1]/2" # s "nimble"
   # speed "[-3 -2]"
-  # gain "0.9"
 
 d1 $ stack [
   n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
@@ -315,6 +320,201 @@ d1 $ slow 16 . modtempo 0.6 4 $ density 16 $
   stack [
   n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
   4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn"
+  ]
+
+hush
+
+{-
+ok so from here on i'm actually trying to write a song,
+everything above is scratch
+-}
+
+-- pt 1: intro
+
+let d'drum = d1
+    d'kit = d2
+    d'wax = d3
+    d'bass = d4
+    d'bass2 = d5
+    d'hi = d7
+
+bpm 105
+hush
+
+d'drum $ slow 4 $ n "1" # s "drum"
+d'wax $ slow 16 . striate 256 $ s "icarus"
+
+d'kit $ n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+d'drum $ slow 8 $ n "[1*2, 0*8]" # s "drum"
+
+d'wax $ superimpose (8 ~>) $
+  slow 16 . striate 256 $ s "icarus"
+
+d'bass $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+d'wax $ slow 16 . striate 256 $ s "icarus"
+d'drum $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d'wax $ superimpose (8 ~>) $
+  every' 2 2 (within (0, 0.75) (iter 16)) $
+  slow 16 . striate 256 $ s "icarus"
+
+d'kit $ withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+
+d'bass $ superimpose (iter 4) $
+  slow 16 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+let bass'osc1 = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
+
+d'bass $ superimpose (iter 4 . bass'osc1) $
+  slow 16 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'wax $ slow 16 . striate 256 $ s "icarus"
+
+d'kit $ whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+
+-- pt 2: mod tempo
+
+d'drum $ mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d'bass $ superimpose (iter 4 . bass'osc1 . (# nudge "0")) $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'wax silence
+d'bass $ mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'bass $ whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'bass $ every' 2 2 (within (0, 0.5) (const silence)) $
+  whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'bass $ every' 2 2 (within (0, 0.5) (const silence)) $
+  superimpose (iter 4 . bass'osc1 . (# nudge "0")) $
+  whenmod 5 3 rev $
+  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
+
+-- pt 2.5: straighten up
+
+d'drum $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d'bass $ whenmod 4 2 (const silence) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+
+d'kit $ every' 16 8 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+
+d'drum $ (whenmod 5 3 . every' 7 5) (0.5 ~>) $
+  slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+
+d'bass $ whenmod 4 2 (const silence) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel "e a"
+
+d'hi $ whenmod 16 8 (0.5 ~>) $
+  slow 8 $ slowspread ($) [gap 16, striate 8] $
+  n "[0 1]/2" # s "nimble" # speed "[-3 -2]"
+  # gain "0.9"
+
+d'bass $ whenmod 4 2 (const silence) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel "e a"
+  # cut "4"
+
+d'wax $ slow 16 . striate 256 $ s "icarus"
+
+d'bass $ superimpose ((4 ~>) . iter 4) $
+  whenmod 4 2 (const silence) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel "e a"
+  # cut "4"
+
+-- pt 3: hip hoppy
+
+d1 silence
+
+d'drum $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+  ]
+
+d'bass2 $ (0.5 ~>) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+
+let drum'sn1 = (# gain "0.65") . (0.25 ~>) . density 2
+let drum'toms1 = within (0, 0.5) ((# gain "0.6") . (# n (irand 3)) . (# s "tom"))
+
+d'drum $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  whenmod 5 3 (superimpose drum'sn1) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+  ]
+
+d'bass $ superimpose ((4 ~>) . iter 4) $
+  whenmod 4 2 (const silence) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel (slow 2.1 "[u i o]")
+  # cut "4"
+
+d'drum $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+  ]
+
+d'bass $ superimpose ((4 ~>) . iter 4) $
+  whenmod 4 2 (rev) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel (slow 2.1 "[u i o]")
+  # cut "4"
+
+d'bass $ superimpose ((4 ~>) . iter 6) $
+  whenmod 4 2 (rev) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel (slow 2.1 "[u i o]")
+  # cut "4"
+
+d'bass2 $ (0.5 ~>) $
+  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel "e a"
+
+d'bass2 $ (0.5 ~>) $
+  slow 16 $ gap 64 $ n "[0 1]/2" # s "nimble"
+  # vowel "e a"
+
+-- pt 4: hip houtro
+
+d'drum $ mt 16 16 $ stack [
+  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
+  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+  ]
+
+d'bass2 $ (0.5 ~>) $
+  mt 16 1 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel "e a"
+
+d'bass $ superimpose ((4 ~>) . iter 6) $
+  whenmod 4 2 (rev) $
+  mt 16 1 $ striate 16 $ n "[0 1]/2" # s "nimble"
+  # vowel (slow 2.1 "[u i o]")
+  # cut "4"
+
+d'drum $ mt 16 16 $ stack [
+  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
+  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+  ]
+
+solo $ d'drum $ slow 16 . modtempo 0.6 4 $ density 16 $ stack [
+  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
+  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
+  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
   ]
 
 hush
