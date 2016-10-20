@@ -30,15 +30,15 @@ hush
 d'drum silence
 
 d'drum $
-  --within (0.5, 1) (rev) $ -- soften
   --mt 16 16 $
+  --within (0.5, 1) (rev) $ -- soften
   swing' $
   stack [
-    superimpose (0.25 ~>) $
     --n "1/4"
     --n "[1*2, 0*8]/8"
     --n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]/8"
-    n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] [0! ~!]]/8"
+    --n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] [0! ~!]]/8"
+    n "[1*2, 0 [0 ~! 0] 0*2 [0 ~! 0] ! 0 0*2 [0! ~!]]/8"
     # s "drum",
     --every' 16 16 (const $ s "kit:3") $
     whenmod 3 2 (density 2) $
@@ -56,6 +56,8 @@ d'drum $
     # s "sn"
     # gain "0.8"
     ]
+
+d'drum $ n "[1*2, 0*8]/8" # s "drum"
 
 {-----
 icarus
@@ -76,7 +78,7 @@ hush
 d'nim silence
 
 d'nim $
-  --{-
+  {-
   superimpose (
     --iter 4 .
     iter 6 .
@@ -84,17 +86,36 @@ d'nim $
     (# nudge "0")
     ) $
   --}
-  --{-
+  {-
   (whenmod 5 2 $
    slowspread (\x -> within (0.5, 1) x) [
      id, density (5%3), rev, density (4%3), id, rev, (0.5 <~)
      ]) $
   --}
-  whenmod 4 2 (const silence) $
+  --whenmod 4 2 (const silence) $
   --mt 16 1 $
   slow 16 $
   striate 256 $ n "[0 1]/2" # s "nimble"
   -- # shape ((/4) <$> density 1.9 sine1)
+
+-- could be killer for part 2
+d'nim $
+  {-
+  superimpose (
+    iter 4 .
+    (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
+    ) $
+  --}
+  {-
+  every' 16 1 (
+    (# vowel "o u") .
+    --(# delay "0.5") . (# delayfeedback "0.6") . (# delaytime "0.25")
+    ) $
+  --}
+  --whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $
+  slow 16 $
+  striate 256 $ n "[0 1]/2" # s "nimble"
 
 {---
 bass
@@ -104,19 +125,26 @@ d'bass silence
 
 let s = striate 16
   in d'bass $
-  whenmod 3 2 (within (0, 0.5) (const silence)) $
-  whenmod 10 8 (within (0.5, 1) (const silence)) $
-  --{-
-  within (0, 0.5) (
-    (# speed "-1") .
-    smash 4 [(4%3),(5%3)]
-    ) $
-  --}
-  slow 8 $ stack [
-    s $ sound "bass",
-    s $ sound "sine"
-    ]
-  # gain "0.8"
+     whenmod 3 2 (within (0, 0.5) (const silence)) $
+     whenmod 10 8 (within (0.5, 1) (const silence)) $
+     slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
+     # gain "0.9"
+
+let s = gap 32
+  in d'bass $
+     swing' $
+     whenmod 3 2 (within (0, 0.5) (const silence)) $
+     whenmod 10 8 (within (0.5, 1) (const silence)) $
+     slowspread (slow) [4%3, 1] $
+     (0.25 ~>) $
+     slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
+     # gain "0.9"
 
 {---------
 alt nimble (wip)
@@ -126,14 +154,16 @@ d'hi silence
 
 d'hi $
   swing' $
+  every 3 rev $
   within (0.5, 1) (density 2) $
-  whenmod 16 8 (0.5 <~) $
+  whenmod 12 8 (0.5 <~) $
   (0.5 ~>) $
   slow 8 $
+  --slowspread (gap) [64, 16] $ -- idk
   gap 64 $
   n "[0 1]/2" # s "nimble"
   -- # speed "[-3 -4]"
   # speed ((-4+).(*(-1)) <$> density 1.1 sine1)
-  -- # vowel "[u a e]/3"
+  -- # vowel "[u a]/3"
 
 hush
