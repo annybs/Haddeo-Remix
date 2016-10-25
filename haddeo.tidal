@@ -17,7 +17,7 @@ d'drum $ stack [
   n "[~ 0]" # s "kit"
   ]
 
-d'wax $ retrig $ s "icarus:1/20"
+d'wax $ retrig $ n "1" # s "[icarus]/20"
 
 -- drop 1
 d'nim $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
@@ -186,6 +186,7 @@ d'nim $ superimpose (iter 4 . nim'osc) $
   whenmod 16 12 (# vowel "[a i]/3") $
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
+{-
 d'drum $ swing' $
   stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
@@ -195,6 +196,17 @@ d'drum $ swing' $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
   every' 4 3 (density 2) $
   n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+  # gain "0.8"
+  ]
+-}
+
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  every' 16 16 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
+  0.5 <~ n "[~ [1/2 0/8 1 0/2]]/2" # s "sn"
   # gain "0.8"
   ]
 
