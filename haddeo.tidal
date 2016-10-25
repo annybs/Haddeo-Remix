@@ -1,258 +1,225 @@
-let bpm b = cps (b/60)
-let withmod a b c d = (whenmod a b . within (c, d))
-let every' n o f = when ((== (o-1)) . (`mod` n)) f
-
-let modtempo s e = (# nudge (scale 0 s $ fmap (**e) saw1))
-let mt s d i = slow s . modtempo 0.3 3 $ density d $ i
-let msil = mapM_ ($ silence)
-
-let d'drum = d1
-    d'kit = d2
-    d'wax = d3
-    d'nim = d4
-    d'nim2 = d5
-    d'bass = d6
-    d'hi = d7
-
+{- just composition notes here, setup in scratch.tidal -}
 -- pt 1: intro
 
-bpm 105
-hush
+d'drum $ stack [
+  n "1/4" # s "drum"
+  ]
 
-d'drum $ slow 4 $ n "1" # s "drum"
 d'wax $ slow 16 . striate 256 $ s "icarus"
 
-d'kit $ n "[~ [0 2]/2]" # s "kit"
-d'drum $ slow 8 $ n "[1*2, 0*8]" # s "drum"
+d'drum $ stack [
+  n "1/4" # s "drum",
+  n "[~ 0]" # s "kit"
+  ]
 
-d'wax $ retrig $ slow 20 . striate 256 $ s "icarus:1"
-d'nim $ slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+d'drum $ stack [
+  n "[1*2, 0*8]/8" # s "drum",
+  n "[~ 0]" # s "kit"
+  ]
+
+d'wax $ retrig $ s "icarus:1/20"
+
+-- drop 1
+d'nim $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 d'wax silence
 
-d'drum $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
-d'kit $ n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+d'drum $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  n "~ 0" # s "kit"
+  ]
 
-d'kit $ withmod 11 5 0.5 1 (density 2) $
+d'drum $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
-
-d'nim $ superimpose (iter 4) $
-  slow 16 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
-let bass'osc1 = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
+  ]
 
 d'wax $ slow 16 . striate 256 $ s "icarus"
 
-d'nim $ superimpose (iter 4 . bass'osc1) $
-  slow 16 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
-d'kit $ whenmod 3 2 (density 2) $
+d'drum $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+  ]
 
-d'wax $ every' 2 2 (within (0, 0.75) (iter 16)) $
-  slow 16 . striate 256 $ s "icarus"
+d'nim $ superimpose (iter 4) $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'bass $ 1.3 ~> sound "[bass, sine]/8"
-  # gain "0.85"
+d'nim $ superimpose (iter 4 . nim'osc) $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
--- pt 2: mod tempo
-
-d'drum $ mt 16 2 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
-
-d'nim $ superimpose (iter 4 . bass'osc1 . (# nudge "0")) $
-  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
-msil [d'bass, d'wax]
-d'nim $ mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
-d'nim $ whenmod 5 3 rev $
-  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
-d'nim $ every' 2 2 (within (0, 0.5) (const silence)) $
-  whenmod 5 3 rev $
-  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
-d'nim $ superimpose (iter 4 . bass'osc1 . (# nudge "0")) $
-  every' 2 2 (within (0, 0.5) (const silence)) $
-  whenmod 5 3 rev $
-  mt 16 1 $ striate 256 $ n "[0 1]/2" # s "nimble"
-
--- pt 2.5: straighten up
-
-d'drum $ slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
-
-d'bass $ 1.3 ~> sound "[bass, sine]/8"
-  # gain "0.85"
-
-d'nim $ whenmod 4 2 (const silence) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
-
-d'kit $ every' 16 8 (const $ s "kit:3") $
+d'drum $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+  ]
 
-d'drum $ (whenmod 5 3 . every' 7 5) (0.5 ~>) $
-  slow 8 $ n "[1*2, 0 0 0 [0 ~! 0] ! 0 [0 0/4] 0]" # s "drum"
+d'nim $ superimpose (iter 6 . nim'osc) $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'bass $
-  (0.3 ~>) $
-  ((whenmod 5 3) . (whenmod 3 1)) (# speed "1.5") $
-  slow 8 $ stack [
-    gap 32 $ sound "bass",
-    gap 32 $ sound "sine"
-    ]
-  # gain "0.85"
+-- pt 2
 
-d'nim $ whenmod 4 2 (const silence) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
-  # vowel "e a"
+d'drum $ mt 16 16 $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+  ]
 
-{-
-d'hi $ whenmod 16 8 (0.5 ~>) $
-  slow 8 $ slowspread ($) [gap 16, striate 8] $
-  n "[0 1]/2" # s "nimble" # speed "[-3 -2]"
-  # gain "0.9"
--}
+d'nim $ superimpose (iter 6 . nim'osc . (# nudge "0")) $
+  mt 16 16 $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'wax silence
+
+d'nim $ mt 16 16 $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'nim $ mt 16 16 $
+  whenmod 5 3 rev $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'nim $ mt 16 16 $
+  every' 2 2 (within (0, 0.5) (const silence)) $
+  whenmod 5 3 rev $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+-- pt 3
+
+solo $ d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
+  mt 16 16 $
+  every' 2 2 (within (0, 0.5) (const silence)) $
+  whenmod 5 3 rev $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
 d'wax $ slow 16 . striate 256 $ s "icarus"
 
-d'nim $ superimpose ((4 ~>) . iter 4) $
-  whenmod 4 2 (const silence) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
-  # vowel "e a"
+let s = striate 16
+  in d'bass $
+     slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
 
--- pt 3: hip hoppy
+d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
+  every' 2 2 (within (0, 0.5) (const silence)) $
+  whenmod 5 3 rev $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-msil [d'drum, d'hi]
+d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'nim2 $ (0.5 ~>) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+d'drum $ --swing' $
+  n "0*4" # s "drum"
 
-d'drum $ stack [
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  every' 16 16 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
   ]
 
-d'bass $ 1.3 ~> sound "[bass, sine]/8"
-  # gain "0.85"
+d'nim $ (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-let drum'sn1 = (# gain "0.65") . (0.25 ~>) . density 2
-let drum'toms1 = within (0, 0.5) ((# gain "0.7") . (# n (irand 3)) . (# s "tom"))
+d'nim $ whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'drum $ stack [
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 5 3 (superimpose drum'sn1) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  every' 16 16 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
+  n "[~ 1]/2" # s "sn"
+  # gain "0.8"
   ]
 
-d'nim $ superimpose ((4 ~>) . iter 4) $
-  whenmod 4 2 (const silence) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+d'nim $ every' 16 1 (# vowel "o u") $
+  whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'nim2 $ (0.5 ~>) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
-  # vowel "e a"
+d'bass silence
 
-d'drum $ stack [
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+let s = gap 32
+  in d'bass $ swing' $
+     (0.25 ~>) $ slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
+
+let s = gap 32
+  in d'bass $ swing' $
+     slowspread (slow) [4%3, 1] $
+     (0.25 ~>) $ slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
+
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  every' 16 16 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
+  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+  # gain "0.8"
   ]
 
-d'drum $ stack [
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 7 6 (slowspread ($) [density 8 . rev . slow 4, (0.25 <~), (0.25 ~>)]) $
-  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
+d'nim $ every' 16 1 ((# vowel "o u") . nim'del) $
+  whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+let s = gap 32
+  in d'bass $ swing' $
+     whenmod 3 2 (within (0, 0.5) (const silence)) $
+     whenmod 10 8 (within (0.5, 1) (const silence)) $
+     slowspread (slow) [4%3, 1] $
+     (0.25 ~>) $
+     slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
+
+d'nim $ superimpose (iter 4 . nim'osc) $
+  every' 16 1 ((# vowel "o u") . nim'del) $
+  whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'drum $ swing' $
+  stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  every' 16 16 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
+  every' 4 3 (density 2) $
+  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+  # gain "0.8"
   ]
 
-d'nim $ superimpose ((4 ~>) . iter 4) $
-  whenmod 4 2 (rev) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
+d'hi $
+  swing' $
+  every 3 rev $
+  whenmod 12 8 (0.5 <~) $
+  (0.5 ~>) $
+  slow 8 $
+  gap 64 $
+  n "[0 1]/2" # s "nimble"
+  # speed ((-4+).(*(-1)) <$> density 1.1 sine1)
 
-d'bass $
-  (1.3 ~>) $
-  ((whenmod 5 3) . (whenmod 3 1)) (# speed "1.5") $
-  slow 8 $ stack [
-    gap 32 $ sound "bass",
-    gap 32 $ sound "sine"
-    ]
-  # gain "0.85"
+msil [d'wax, d'nim, d'bass]
 
-d'hi $ whenmod 16 8 (0.5 ~>) $
-  slow 8 $ slowspread ($) [gap 16, striate 8] $
-  n "[0 1]/2" # s "nimble" # speed "[-3 -2]"
+d'hi $
+  swing' $
+  every 3 rev $
+  within (0.5, 1) (density 2) $
+  whenmod 12 8 (0.5 <~) $
+  (0.5 ~>) $
+  slow 8 $
+  gap 64 $
+  n "[0 1]/2" # s "nimble"
+  # speed ((-4+).(*(-1)) <$> density 1.1 sine1)
   # gain "0.9"
-
-d'drum $ stack [
-  (whenmod 8 5 . whenmod 7 4) (density 2 . rev) $
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 7 6 (slowspread ($) [density 8 . rev . slow 4, (0.25 <~), (0.25 ~>)]) $
-  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
-  ]
-
-d'nim $ superimpose ((4 ~>) . iter 6) $
-  whenmod 4 2 (rev) $
-  slow 16 $ striate 16 $ n "[0 1]/2" # s "nimble"
-
--- pt 4: hip houtro
-bpm 105
-
-d'drum $ stack [
-  (whenmod 8 5 . whenmod 7 4) (density 2 . rev) $
-  superimpose (0.25 ~>) $
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 7 6 (slowspread ($) [density 8 . rev . slow 4, (0.25 <~), (0.25 ~>)]) $
-  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
-  ]
-
-d'drum $ mt 16 16 $ stack [
-  (whenmod 8 5 . whenmod 7 4) (density 2 . rev) $
-  superimpose (0.25 ~>) $
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 7 6 (slowspread ($) [density 8 . rev . slow 4, (0.25 <~), (0.25 ~>)]) $
-  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
-  ]
-
-d'nim2 $ (0.5 ~>) $
-  mt 16 1 $ striate 16 $ n "[0 1]/2" # s "nimble"
-  # vowel "e a"
-
-d'nim $ superimpose ((4 ~>) . iter 6) $
-  whenmod 4 2 (rev) $
-  mt 16 1 $ striate 16 $ n "[0 1]/2" # s "nimble"
-  # vowel (slow 2.1 "[u i]")
-  # cut "4"
-
-d'bass $
-  (1.3 ~>) $
-  ((whenmod 5 3) . (whenmod 3 1)) (# speed "1.5") $
-  mt 16 2 $ stack [
-    gap 32 $ sound "bass",
-    gap 32 $ sound "sine"
-    ]
-  # gain "0.85"
-
-msil [d'nim, d'nim2, d'wax]
-
-d'drum $ mt 16 16 $ stack [
-  (whenmod 8 5 . whenmod 7 4) (density 2 . rev) $
-  superimpose (0.25 ~>) $
-  n "[1, 0*2 [~ 0] ! ~]/4" # s "drum",
-  whenmod 7 6 (slowspread ($) [density 8 . rev . slow 4, (0.25 <~), (0.25 ~>)]) $
-  whenmod 5 3 (superimpose (drum'toms1 . drum'sn1)) $
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
-  ]
-
-msil [d'kit, d'bass]
-
-solo $ d'drum $ slow 16 . modtempo 0.6 4 $ density 16 $ stack [
-  n "[1, 0*4 [~ 0*2] [~ 0/2 0 ~] ~]/4" # s "drum",
-  4 ~> n "[~ 0 [~ 0/2 ~!] 0]/4" # s "sn" # gain "0.76"
-  ]
 
 hush
