@@ -17,7 +17,7 @@ d'drum $ stack [
   n "[~ 0]" # s "kit"
   ]
 
-d'wax $ retrig $ n "1" # s "[icarus]/20"
+d'wax $ retrig $ slow 20 $ n "1" # s "icarus"
 
 -- drop 1
 d'nim $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
@@ -100,6 +100,7 @@ let s = striate 16
        s $ sound "bass",
        s $ sound "sine"
        ]
+     # gain "0.9"
 
 d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
   every' 2 2 (within (0, 0.5) (const silence)) $
@@ -109,12 +110,18 @@ d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
 d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'drum $ --swing' $
-  n "0*4" # s "drum"
+d'drum $ n "0*4" # s "drum"
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ s "kit:3") $
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
+  ]
+
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
+  every' 16 16 (const $ n "3" # s "kit") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
@@ -127,7 +134,7 @@ d'nim $ whenmod 16 12 (# vowel "[a i]/3") $
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ s "kit:3") $
+  every' 16 16 (const $ n "3" # s "kit") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
@@ -147,6 +154,7 @@ let s = gap 32
        s $ sound "bass",
        s $ sound "sine"
        ]
+     # gain "0.9"
 
 let s = gap 32
   in d'bass $ swing' $
@@ -155,10 +163,11 @@ let s = gap 32
        s $ sound "bass",
        s $ sound "sine"
        ]
+     # gain "0.9"
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ s "kit:3") $
+  every' 16 16 (const $ n "3" # s "kit") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
@@ -180,29 +189,18 @@ let s = gap 32
        s $ sound "bass",
        s $ sound "sine"
        ]
+     # gain "0.9"
+
+d'wax silence
 
 d'nim $ superimpose (iter 4 . nim'osc) $
   every' 16 1 ((# vowel "o u") . nim'del) $
   whenmod 16 12 (# vowel "[a i]/3") $
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-{-
-d'drum $ swing' $
-  stack [
-  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ s "kit:3") $
-  whenmod 3 2 (density 2) $
-  withmod 11 5 0.5 1 (density 2) $
-  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
-  every' 4 3 (density 2) $
-  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
-  # gain "0.8"
-  ]
--}
-
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ s "kit:3") $
+  every' 16 16 (const $ n "3" # s "kit") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
@@ -219,8 +217,9 @@ d'hi $
   gap 64 $
   n "[0 1]/2" # s "nimble"
   # speed ((-4+).(*(-1)) <$> density 1.1 sine1)
+  # gain "0.9"
 
-msil [d'wax, d'nim, d'bass]
+msil [d'nim, d'bass]
 
 d'hi $
   swing' $
@@ -233,5 +232,7 @@ d'hi $
   n "[0 1]/2" # s "nimble"
   # speed ((-4+).(*(-1)) <$> density 1.1 sine1)
   # gain "0.9"
+
+d'hi silence
 
 hush

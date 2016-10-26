@@ -17,6 +17,10 @@ let d'drum = d1
     d'nim = d5
     d'hi = d6
 
+
+let nim'osc = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
+    nim'del = (# delay "0.5") . (# delayfeedback "0.6") . (# delaytime "0.25")
+
 -- original bpm = 105
 let tmod' s e = tmod (s*(1/(105/60))) e
     mt s d i = slow s $ tmod' 0.5 3 $ density d $ i
@@ -78,9 +82,6 @@ nimble
 -----}
 hush
 d'nim silence
-
-let nim'osc = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
-let nim'del = (# delay "0.5") . (# delayfeedback "0.6") . (# delaytime "0.25")
 
 d'nim $
   {-
