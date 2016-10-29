@@ -17,7 +17,6 @@ let d'drum = d1
     d'nim = d5
     d'hi = d6
 
-
 let nim'osc = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
     nim'del = (# delay "0.5") . (# delayfeedback "0.6") . (# delaytime "0.25")
 

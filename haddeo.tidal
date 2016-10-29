@@ -233,14 +233,6 @@ d'nim $ (0.25 ~>) $
   whenmod 4 2 (const silence) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-let s = striate 16
-  in d'bass $
-     slow 8 $ stack [
-       s $ sound "bass",
-       s $ sound "sine"
-       ]
-     # gain "0.9"
-
 d'hi $
   swing' $
   every 3 rev $
@@ -255,4 +247,13 @@ d'hi $
 
 msil [d'bass, d'hi, d9]
 
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
+  every' 16 16 (const $ n "3" # s "kit") $
+  n "[~ 0]" # s "kit",
+  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+  # gain "0.8"
+  ]
+
+d'hi silence
 hush
