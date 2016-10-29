@@ -179,6 +179,15 @@ d'nim $ every' 16 1 ((# vowel "o u") . nim'del) $
   whenmod 16 12 (# vowel "[a i]/3") $
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
+-- experimental
+d9 $ swing' $
+--  iter 3 $
+--  superimpose (0.75 ~>) $
+  chop 8 $
+  n "[0*2 1 [[~ 0]!] 0]/4" # s "bass2"
+  # speed "[2 1]"
+  # gain "0.9"
+
 {-
 let s = gap 32
   in d'bass $ swing' $
@@ -244,6 +253,6 @@ d'hi $
   # speed ((-4+).(*(-1)) <$> density 1.1 sine1)
   # gain "0.9"
 
-msil [d'bass, d'hi]
+msil [d'bass, d'hi, d9]
 
 hush
