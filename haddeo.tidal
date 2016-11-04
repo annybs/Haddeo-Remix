@@ -86,6 +86,9 @@ d'fx3 $
 d'nim $ superimpose (iter 4) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
+d'fx2 $ 3 ~> n "[0 1]/8" # s "duon"
+  # gain "0.9"
+
 d'nim $ superimpose (iter 4 . nim'osc) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
@@ -127,7 +130,7 @@ d'fx1 $ mt 16 16 $
   # hcutoff "200"
   # gain "0.8"
 
-msil [d'wax, d'fx3]
+msil [d'wax, d'fx2, d'fx3]
 
 d'nim $ mt 16 16 $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
@@ -323,24 +326,19 @@ d'drum $ swing' $ stack [
   # gain "0.8"
   ]
 
-d'fx2 $
-  stack [
-    1.75 ~> s "blaster/4"
-    # gain "0.7",
-    chop 16 $
-    3.75 ~> s "duck/4"
-    # gain "0.6"
-    # speed "0.9"
-    ]
+d'fx2 $ 3 ~> n "[0 1]/8" # s "duon"
+  # gain "0.9"
 
 d'nim $ (0.25 ~>) $
   whenmod 4 2 (const silence) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
   # vowel "o"
 
-msil [d'bass, d'hi, d'bass2, d'fx1, d'fx2]
+msil [d'bass, d'hi, d'bass2, d'fx1]
 
 d'wax $ slow 16 . striate 256 $ s "icarus"
+
+d'fx2 silence
 d'wax $ retrig $ slow 20 $ sound "icarus:1"
 
 d'drum $ swing' $ mt 16 16 $ stack [
