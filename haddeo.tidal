@@ -86,13 +86,9 @@ d'fx3 $
 d'nim $ superimpose (iter 4) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'fx2 $ 3 ~> n "[0 1]/8" # s "duon"
-  # gain "0.9"
-
 d'nim $ superimpose (iter 4 . nim'osc) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
--- not sure this quite works so early in the tune. works better after offbeat breakdown
 d'fx1 $
   (2 ~>) $ chop 16 $
   s "dorr/4"
@@ -144,11 +140,7 @@ d'nim $ mt 16 16 $
   whenmod 5 3 rev $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'fx2 $ mt 16 16 $
-  stack [
-    1.75 ~> n "0/4" # s "blaster"
-    # gain "0.7"
-    ]
+d'fx2 $ mt 16 16 $ 1.75 ~> s "tubal/4"
 
 d'nim $ mt 16 16 $
   every 3 (density 2) $
@@ -158,8 +150,7 @@ d'nim $ mt 16 16 $
 
 d'fx2 $ mt 16 16 $
   stack [
-    1.75 ~> s "blaster/4"
-    # gain "0.7",
+    1.75 ~> s "tubal/4",
     chop 16 $
     3.75 ~> s "duck/4"
     # gain "0.6"
@@ -202,7 +193,11 @@ d'nim $ superimpose (iter 4 . nim'osc . (# nudge "0")) $
 
 -- pt 3: funk
 
+d'drum $ n "0*4" # s "kit"
+  # gain "0.9"
+
 d'drum $ n "0*4" # s "drum"
+  # gain "0.9"
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
@@ -215,24 +210,15 @@ d'nim $ (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ sound "kit:3") $
-  whenmod 3 2 (density 2) $
-  withmod 11 5 0.5 1 (density 2) $
-  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit"
-  ]
-
-d'nim $ whenmod 16 12 (# vowel "[a i]/3") $
-  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
-
-d'drum $ swing' $ stack [
-  n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ sound "kit:3") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
   n "[~ 1]/2" # s "sn"
-  # gain "0.8"
+  # gain "0.85"
   ]
+
+d'nim $ whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
 d'nim $ every' 16 1 (# vowel "o u") $
   whenmod 16 12 (# vowel "[a i]/3") $
@@ -240,12 +226,11 @@ d'nim $ every' 16 1 (# vowel "o u") $
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
-  every' 16 16 (const $ sound "kit:3") $
   whenmod 3 2 (density 2) $
   withmod 11 5 0.5 1 (density 2) $
   n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
   n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
-  # gain "0.8"
+  # gain "0.85"
   ]
 
 d'bass2 $ swing' $
@@ -255,13 +240,18 @@ d'bass2 $ swing' $
 
 d'fx2 $
   stack [
-    1.75 ~> s "blaster/4"
-    # gain "0.7",
+    1.75 ~> s "tubal/4",
     chop 16 $
     3.75 ~> s "duck/4"
     # gain "0.6"
     # speed "0.9"
     ]
+
+d'fx1 $
+  (2 ~>) $ chop 16 $ s "dorr/4"
+  # hresonance "0.05"
+  # hcutoff "200"
+  # gain "0.8"
 
 d'nim $ every' 16 1 ((# vowel "o u") . nim'del) $
   whenmod 16 12 (# vowel "[a i]/3") $
@@ -276,12 +266,14 @@ d'fx1 $
 
 d'wax $ slow 16 . striate 256 $ s "icarus"
 
-d'fx3 $
-  (1.5 ~>) $
-  slow 4 $ chop 48 $
-  sound (samples "snoo" <$> slow 7 $ run 7)
-  # gain "0.8"
-  # cut "10"
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
+  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+  # gain "0.85"
+  ]
 
 d'nim $ superimpose (iter 4) $
   every' 16 1 ((# vowel "o u") . nim'del) $
@@ -297,7 +289,7 @@ d'drum $ swing' $ stack [
   n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
   n "[~ 0]" # s "kit",
   n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
-  # gain "0.8"
+  # gain "0.85"
   ]
 
 -- outro
@@ -318,6 +310,14 @@ d'nim $ (0.25 ~>) $
   whenmod 4 2 (const silence) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
+d'fx3 $ 3 ~> n "[0 1]/8" # s "duon"
+  # gain "0.9"
+
+d'nim $ (0.25 ~>) $
+  whenmod 4 2 (const silence) $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+  # vowel "o"
+
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
   every' 16 16 (const $ sound "kit:3") $
@@ -326,19 +326,9 @@ d'drum $ swing' $ stack [
   # gain "0.8"
   ]
 
-d'fx2 $ 3 ~> n "[0 1]/8" # s "duon"
-  # gain "0.9"
-
-d'nim $ (0.25 ~>) $
-  whenmod 4 2 (const silence) $
-  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
-  # vowel "o"
-
-msil [d'bass, d'hi, d'bass2, d'fx1]
+msil [d'bass, d'hi, d'bass2, d'fx1, d'fx3]
 
 d'wax $ slow 16 . striate 256 $ s "icarus"
-
-d'fx2 silence
 d'wax $ retrig $ slow 20 $ sound "icarus:1"
 
 d'drum $ swing' $ mt 16 16 $ stack [
