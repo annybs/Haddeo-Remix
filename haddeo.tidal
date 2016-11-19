@@ -238,6 +238,12 @@ d'bass2 $ swing' $
   # speed (0.5 ~> "[2 1]")
   # gain "0.82"
 
+d'fx1 $
+  (2 ~>) $ chop 16 $ s "dorr/4"
+  # hresonance "0.05"
+  # hcutoff "200"
+  # gain "0.8"
+
 d'fx2 $
   stack [
     1.75 ~> s "tubal/4",
@@ -246,12 +252,6 @@ d'fx2 $
     # gain "0.6"
     # speed "0.9"
     ]
-
-d'fx1 $
-  (2 ~>) $ chop 16 $ s "dorr/4"
-  # hresonance "0.05"
-  # hcutoff "200"
-  # gain "0.8"
 
 d'nim $ every' 16 1 ((# vowel "o u") . nim'del) $
   whenmod 16 12 (# vowel "[a i]/3") $
@@ -266,14 +266,12 @@ d'fx1 $
 
 d'wax $ slow 16 . striate 256 $ s "icarus"
 
-d'drum $ swing' $ stack [
-  n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
-  whenmod 3 2 (density 2) $
-  withmod 11 5 0.5 1 (density 2) $
-  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
-  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
-  # gain "0.85"
-  ]
+d'fx3 $
+  (1.5 ~>) $
+  slow 4 $ chop 48 $
+  sound (samples "snoo" <$> slow 7 $ run 7)
+  # gain "0.8"
+  # cut "10"
 
 d'nim $ superimpose (iter 4) $
   every' 16 1 ((# vowel "o u") . nim'del) $
@@ -284,6 +282,15 @@ d'nim $ superimpose (iter 4 . nim'osc) $
   every' 16 1 ((# vowel "o u") . nim'del) $
   whenmod 16 12 (# vowel "[a i]/3") $
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'drum $ swing' $ stack [
+  n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
+  whenmod 3 2 (density 2) $
+  withmod 11 5 0.5 1 (density 2) $
+  n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit",
+  n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+  # gain "0.85"
+  ]
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
