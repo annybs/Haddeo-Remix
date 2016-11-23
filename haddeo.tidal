@@ -86,15 +86,15 @@ d'fx3 $
 d'nim $ superimpose (iter 4) $
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'nim $ superimpose (iter 4 . nim'osc) $
-  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
-
 d'fx1 $
   (2 ~>) $ chop 16 $
   s "dorr/4"
   # hresonance "0.05"
   # hcutoff "200"
   # gain "0.8"
+
+d'nim $ superimpose (iter 4 . nim'osc) $
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
 d'drum $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
@@ -208,6 +208,13 @@ d'drum $ swing' $ stack [
 
 d'nim $ (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
+d'nim $ whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
+d'nim $ every' 16 1 (# vowel "o u") $
+  whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [~!! [~!! 0] ! ~!!]]/8" # s "drum",
   whenmod 3 2 (density 2) $
@@ -217,10 +224,7 @@ d'drum $ swing' $ stack [
   # gain "0.85"
   ]
 
-d'nim $ whenmod 16 12 (# vowel "[a i]/3") $
-  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
-
-d'nim $ every' 16 1 (# vowel "o u") $
+d'nim $ every' 16 1 ((# vowel "o u") . nim'del) $
   whenmod 16 12 (# vowel "[a i]/3") $
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
@@ -253,10 +257,6 @@ d'fx2 $
     # speed "0.9"
     ]
 
-d'nim $ every' 16 1 ((# vowel "o u") . nim'del) $
-  whenmod 16 12 (# vowel "[a i]/3") $
-  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
-
 d'fx1 $
   superimpose (slow 2) $
   (2 ~>) $ chop 16 $ s "dorr/4"
@@ -278,11 +278,6 @@ d'nim $ superimpose (iter 4) $
   whenmod 16 12 (# vowel "[a i]/3") $
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
-d'nim $ superimpose (iter 4 . nim'osc) $
-  every' 16 1 ((# vowel "o u") . nim'del) $
-  whenmod 16 12 (# vowel "[a i]/3") $
-  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
-
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
   whenmod 3 2 (density 2) $
@@ -291,6 +286,11 @@ d'drum $ swing' $ stack [
   n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
   # gain "0.85"
   ]
+
+d'nim $ superimpose (iter 4 . nim'osc) $
+  every' 16 1 ((# vowel "o u") . nim'del) $
+  whenmod 16 12 (# vowel "[a i]/3") $
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
 d'drum $ swing' $ stack [
   n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
