@@ -24,7 +24,10 @@ let d'drum = d1
     d'fx3 = d10
 
 let nim'osc = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
-    nim'del = (# delay "0.5") . (# delayfeedback "0.6") . (# delaytime "0.25")
+    nim'del = (# orbit "1") .
+              (# delay "0.5") .
+              (# delayfeedback "0.6") .
+              (# delaytime "0.25")
 
 -- original bpm = 105
 let tmod' s e = tmod (s*(1/(105/60))) e
