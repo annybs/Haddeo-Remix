@@ -1,0 +1,24 @@
+-- megalet for haddeo.tidal
+let bpm b = cps (b/60)
+    withmod a b c d = (whenmod a b . within (c, d))
+    every' n o f = when ((== (o-1)) . (`mod` n)) f
+    msil = mapM_ ($ silence)
+    tmod s e = (# nudge (scale 0 s $ fmap (**e) saw1))
+    swing a = within (0.1, 0.4) (a ~>) . within (0.6, 0.9) (a ~>)
+    swing' = swing 0.14 --0.05
+    d'drum = d1
+    d'bass = d3
+    d'bass2 = d2
+    d'wax = d4
+    d'nim = d5
+    d'hi = d6
+    d'fx1 = d8
+    d'fx2 = d9
+    d'fx3 = d10
+    nim'osc = (# speed ((+0.8).(/1.5) <$> slow 2.5 sine1))
+    nim'del = (# orbit "1") .
+              (# delay "0.5") .
+              (# delayfeedback "0.6") .
+              (# delaytime "0.25")
+    tmod' s e = tmod (s*(1/(105/60))) e
+    mt s d i = slow s $ tmod' 0.5 3 $ density d $ i
