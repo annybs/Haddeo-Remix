@@ -2,7 +2,7 @@
 Anny: Haddeo (Algorave Remix)
 anny.audio
 
-Current version: 1.0.1
+Current version: 1.0.2
 Compatibility: Tidal Cycles 1.0-dev + SuperDirt 1.0-dev + SuperCollider 3.8
 License: CC-BY-SA https://creativecommons.org/licenses/by-sa/4.0/
 
@@ -55,7 +55,7 @@ d'wax $ retrig $ slow 20 $ sound "icarus:1"
 d'nim $
   {- -- (1)
   superimpose (iter 4 -- (3) iter 6
-               -- .(# speed (scale (2/3) ((2/3)+0.8) $ slow 2.5 sine1)) -- (2)
+               -- .(# speed (scale 0.8 (0.8+(2/3)) $ slow 2.5 sine1)) -- (2)
               ) $ -- -}
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
@@ -109,7 +109,7 @@ d'drum $ mt $ stack [
   ]
 
 d'nim $ superimpose (iter 6 .
-                     (# speed (scale (2/3) ((2/3)+0.8) $ slow 2.5 sine1)) .
+                     (# speed (scale 0.8 (0.8+(2/3)) $ slow 2.5 sine1)) .
                      (# nudge 0)) $
   mt $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
@@ -123,7 +123,7 @@ msil [d'wax, d'fx2, d'fx3]
 d'nim $
   {- -- (4)
   superimpose (iter 4 .
-               (# speed (scale (2/3) ((2/3)+0.8) $ slow 2.5 sine1)) .
+               (# speed (scale 0.8 (0.8+(2/3)) $ slow 2.5 sine1)) .
                (# nudge 0)) $ -- -}
   mt $
   -- every 3 (density 2) $ -- (3)
@@ -185,7 +185,7 @@ d'drum $ swing 0.14 $ stack [
 d'nim $
   {- -- (4)
   superimpose (iter 4
-               .(# speed (scale (2/3) ((2/3)+0.8) $ slow 2.5 sine1)) -- (5)
+               .(# speed (scale 0.8 (0.8+(2/3)) $ slow 2.5 sine1)) -- (5)
               ) $ -- -}
   {- -- (2)
   every' 16 1 ((# vowel "o u")
