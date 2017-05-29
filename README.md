@@ -12,7 +12,7 @@ Original song "Haddeo" from the album "[The Slug and the Snarl](http://heskinrad
 
 `haddeo.scd` is a simple SuperCollider startup file to configure audio routing and load project samples.
 
-`haddeo.tidal` is the full Piston composition for Tidal Cycles.
+`haddeo.tidal` is the full Haddeo (Algorave Remix) composition for Tidal Cycles.
 
 `samples.csv` contains sample attributions. All samples are available in `samples/` directory.
 
