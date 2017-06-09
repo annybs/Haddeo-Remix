@@ -43,8 +43,8 @@ d'drum $ stack [
 -- @hic1
 d'wax $ slow 16 . striate 256 $ s "icarus"
 
--- ~hdrum0 @ 1
--- ~hdrum0 @ 2
+-- hdrum0 @ 1
+-- hdrum0 @ 2
 
 -- @hic2
 d'wax $ retrig $ slow 20 $ sound "icarus:1"
@@ -70,10 +70,10 @@ d'drum $ stack [
   -- n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit" -- (1)
   ]
 
--- ~hdrum1 @ 1
--- ~hic1
+-- hdrum1 @ 1
+-- hic1
 
--- ~drum1 @ 2
+-- drum1 @ 2
 
 -- @hsnoo
 d'fx3 $
@@ -83,7 +83,7 @@ d'fx3 $
   # gain 0.8
   # cut 10
 
--- ~hnim1 @ 1
+-- hnim1 @ 1
 
 -- @hdorr1
 d'fx1 $ -- mt $ -- (1)
@@ -93,10 +93,10 @@ d'fx1 $ -- mt $ -- (1)
   # hcutoff 200
   # gain 0.8
 
--- ~hnim1 @ 2
--- ~hdrum1 @ 3
+-- hnim1 @ 2
+-- hdrum1 @ 3
 
--- ~ hnim1 @ 3
+--  hnim1 @ 3
 
 -- pt 2 transition
 
@@ -113,7 +113,7 @@ d'nim $ superimpose (iter 6 .
                      (# nudge 0)) $
   mt $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
--- ~hdorr1 @ 1 (mt)
+-- hdorr1 @ 1 (mt)
 
 -- pt 2: offbeat
 
@@ -131,12 +131,12 @@ d'nim $
   -- whenmod 5 3 rev $ -- (1)
   slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
--- ~hnim2 @ 1
--- ~hnim2 @ 2
+-- hnim2 @ 1
+-- hnim2 @ 2
 
 d'fx2 $ mt $ 1.75 ~> s "tubal/4"
 
--- ~hnim2 @ 3
+-- hnim2 @ 3
 
 -- @hduck
 d'fx2 $ mt $
@@ -147,7 +147,7 @@ d'fx2 $ mt $
     # speed 0.9
     ]
 
--- ~hnim2 @ 4
+-- hnim2 @ 4
 
 -- intermission
 
@@ -165,7 +165,7 @@ let s = striate 16
        ]
      # gain 0.9
 
--- ~hnim2f @ 0 keeping superimpose
+-- hnim2f @ 0 keeping superimpose
 
 -- pt 3: funk
 
@@ -197,12 +197,12 @@ d'nim $
   -- whenmod 16 12 (# vowel "[a i]/3") $ -- (1)
   (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
 
--- ~hnim3 @ 1
--- ~hnim3 @ 2
+-- hnim3 @ 1
+-- hnim3 @ 2
 
--- ~hdrum3 @ 1
+-- hdrum3 @ 1
 
--- ~hdrum3 @ 2
+-- hdrum3 @ 2
 
 -- @hbass2
 d'bass2 $ swing 0.14 $
@@ -218,13 +218,13 @@ d'fx1 $
   # hcutoff 200
   # gain 0.8
 
--- ~hduck w/o mt
--- ~hdorr2 @ 1
+-- hduck w/o mt
+-- hdorr2 @ 1
 
--- ~hic1
--- ~hsnoo
+-- hic1
+-- hsnoo
 
--- ~hnim3 @ 4
+-- hnim3 @ 4
 
 -- @hdrum4
 d'drum $ swing 0.14 $ -- mt $ -- (3)
@@ -237,8 +237,8 @@ d'drum $ swing 0.14 $ -- mt $ -- (3)
     # gain 0.85
     ]
 
--- ~hnim3 @ 5
--- ~hdrum4 @ 1
+-- hnim3 @ 5
+-- hdrum4 @ 1
 
 -- outro
 
@@ -266,14 +266,14 @@ d'nim $ -- mt $ -- (2)
 d'fx3 $ 3 ~> n "[0 1]/8" # s "duon"
   # gain 0.9
 
--- ~hnim4 @ 1
--- ~hdrum4 @ 2
+-- hnim4 @ 1
+-- hdrum4 @ 2
 
 msil [d'bass, d'bass2, d'hi, d'fx1, d'fx3]
 
--- ~hic1
--- ~hic2
--- ~hdrum4 @ 3 w/ mt
--- ~hnim4 @ 2 w/ mt
+-- hic1
+-- hic2
+-- hdrum4 @ 3 w/ mt
+-- hnim4 @ 2 w/ mt
 
 hush
