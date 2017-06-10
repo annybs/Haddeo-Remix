@@ -18,7 +18,7 @@ Original song "Haddeo" from the album "[The Slug and the Snarl](http://heskinrad
 
 ## Snippets
 
-The main `battery.tidal` reflects the original composition, and includes 'initial states' of the various patterns used with notes on what should be changed and when. New patterns are prefaced with a comment like `-- @something` declaring its 'key' for reference.
+The main `haddeo.tidal` reflects the original composition, and includes 'initial states' of the various patterns used with notes on what should be changed and when. New patterns are prefaced with a comment like `-- @something` declaring its 'key' for reference.
 
 In the `snippets/` directory are [yasnippet](http://joaotavora.github.io/yasnippet/)-compatible snippet files reflecting these references, and additionally a `hsetup` snippet (which contains the project setup) and a `haddeo` snippet that provides a convenient list of all project snippets.
 
