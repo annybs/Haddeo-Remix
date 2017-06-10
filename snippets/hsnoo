@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: hsnoo
+# group: haddeo
+# key: hsnoo
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hsnoo
+d'fx3 $
+  (1.5 ~>) $
+  slow 4 $ chop 48 $
+  sound (samples "snoo" <$> slow 7 $ run 7)
+  # gain 0.8
+  # cut 10

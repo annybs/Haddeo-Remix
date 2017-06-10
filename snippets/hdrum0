@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: hdrum0
+# group: haddeo
+# key: hdrum0
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hdrum0
+d'drum $ stack [
+  n "1/4" # s "drum" -- (2) remove
+  -- n "[1*2, 0*8]/8" # s "drum", -- (2)
+  -- n "[~ 0]" # s "kit" -- (1)
+  ]

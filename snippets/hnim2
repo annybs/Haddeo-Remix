@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: hnim2
+# group: haddeo
+# key: hnim2
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hnim2
+d'nim $
+  {- -- (4)
+  superimpose (iter 4 .
+               (# speed (scale 0.8 (0.8+(2/3)) $ slow 2.5 sine1)) .
+               (# nudge 0)) $ -- -}
+  mt $
+  -- every 3 (density 2) $ -- (3)
+  -- every' 2 2 (within (0, 0.5) (const silence)) $ -- (2)
+  -- whenmod 5 3 rev $ -- (1)
+  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"

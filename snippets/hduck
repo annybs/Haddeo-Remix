@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: hduck
+# group: haddeo
+# key: hduck
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hduck
+d'fx2 $ mt $
+  stack [
+    1.75 ~> s "tubal/4",
+    (3.75 ~>) $ chop 16 $ s "duck/4"
+    # gain 0.6
+    # speed 0.9
+    ]

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: hbass2
+# group: haddeo
+# key: hbass2
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hbass2
+d'bass2 $ swing 0.14 $
+  n "[~ [~ 1] [~!! 0] [~ 0 1 ~]]/4" # s "bass2"
+  # speed (0.5 ~> "[2 1]")
+  # gain 0.82

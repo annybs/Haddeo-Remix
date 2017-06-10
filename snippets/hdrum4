@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: hdrum4
+# group: haddeo
+# key: hdrum4
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hdrum4
+d'drum $ swing 0.14 $ -- mt $ -- (3)
+  stack [
+    n "[1*2, 0*8, [[~ 0] ~! [~!! 0] [~! 0!] ~!!]]/8" # s "drum",
+    -- every' 16 16 (const $ sound "kit:3") $ -- (2)
+    -- n "[~ 0]" # s "kit", -- (1)
+    n "[[~ 0] [[2!! ~]/4 0]]/2" # s "kit", -- (1) remove
+    n "[~ [1 0/8 1/2 0/2]]/2" # s "sn"
+    # gain 0.85
+    ]

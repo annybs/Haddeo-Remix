@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: haddeo
+# group: haddeo
+# key: haddeo
+# expand-env: (yas-indent-line 'fixed)
+# --
+hsetup
+hdrum0
+hic1
+hic2
+hnim1
+hdrum1
+hsnoo
+hdorr1
+hdrum2
+hnim2
+hduck
+hbass
+hdrum23
+hdrum3
+hnim3
+hbass2
+hdorr2
+hdrum4
+hhi
+hnim4
+hduon

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: hdorr2
+# group: haddeo
+# key: hdorr2
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hdorr2
+d'fx1 $
+  -- superimpose (slow 2) $ -- (1)
+  (2 ~>) $ chop 16 $ s "dorr/4"
+  # hresonance 0.05
+  # hcutoff 200
+  # gain 0.8

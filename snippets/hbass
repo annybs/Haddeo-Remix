@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: hbass
+# group: haddeo
+# key: hbass
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hbass
+let s = striate 16
+  in d'bass $
+     slow 8 $ stack [
+       s $ sound "bass",
+       s $ sound "sine"
+       ]
+     # gain 0.9

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: hdrum23
+# group: haddeo
+# key: hdrum23
+# expand-env: (yas-indent-line 'fixed)
+# --
+-- @hdrum23
+d'drum $ n "0*4" # s "kit" # gain 0.9 -- (1) s "drum"
