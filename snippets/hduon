@@ -5,5 +5,5 @@
 # expand-env: (yas-indent-line fixed)
 # --
 -- @hduon
-d'fx3 $ 3 ~> n "[0 1]/8" # s "duon"
+d'fx3 $ 3 ~> n "[0 1]/8" # s "${1:duon}"
   # gain 0.9

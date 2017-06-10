@@ -8,5 +8,5 @@
 d'nim $ -- mt $ -- (2)
   (0.25 ~>) $
   whenmod 4 2 (const silence) $
-  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+  slow 16 . striate 256 $ n "[0 1]/2" # s "${1:nimble}"
   -- # vowel "o" -- (1)

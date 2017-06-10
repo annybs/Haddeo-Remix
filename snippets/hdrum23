@@ -5,4 +5,4 @@
 # expand-env: (yas-indent-line fixed)
 # --
 -- @hdrum23
-d'drum $ n "0*4" # s "kit" # gain 0.9 -- (1) s "drum"
+d'drum $ n "0*4" # s "${2:kit}" # gain 0.9 -- (1) s "${1:drum}"

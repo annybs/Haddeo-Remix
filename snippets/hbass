@@ -8,7 +8,7 @@
 let s = striate 16
   in d'bass $
      slow 8 $ stack [
-       s $ sound "bass",
-       s $ sound "sine"
+       s $ sound "${1:bass}",
+       s $ sound "${2:sine}"
        ]
      # gain 0.9

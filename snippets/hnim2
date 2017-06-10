@@ -14,4 +14,4 @@ d'nim $
   -- every 3 (density 2) $ -- (3)
   -- every' 2 2 (within (0, 0.5) (const silence)) $ -- (2)
   -- whenmod 5 3 rev $ -- (1)
-  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+  slow 16 . striate 256 $ n "[0 1]/2" # s "${1:nimble}"

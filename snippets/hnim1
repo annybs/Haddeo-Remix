@@ -10,4 +10,4 @@ d'nim $
   superimpose (iter 4 -- (3) iter 6
                -- .(# speed (scale 0.8 (0.8+(2/3)) $ slow 2.5 sine1)) -- (2)
               ) $ -- -}
-  slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+  slow 16 . striate 256 $ n "[0 1]/2" # s "${1:nimble}"

@@ -18,4 +18,4 @@ d'nim $
                -- -}
               ) $ -- -}
   -- whenmod 16 12 (# vowel "[a i]/3") $ -- (1)
-  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "nimble"
+  (1 ~>) $ slow 16 . striate 256 $ n "[0 1]/2" # s "${1:nimble}"

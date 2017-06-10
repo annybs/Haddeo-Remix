@@ -5,4 +5,4 @@
 # expand-env: (yas-indent-line fixed)
 # --
 -- @hic1
-d'wax $ slow 16 . striate 256 $ s "icarus"
+d'wax $ slow 16 . striate 256 $ s "${1:icarus}"
