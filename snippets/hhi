@@ -2,7 +2,7 @@
 # name: hhi
 # group: haddeo
 # key: hhi
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hhi
 d'hi $

@@ -2,7 +2,7 @@
 # name: hsetup
 # group: haddeo
 # key: hsetup
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 let bpm b = cps (b/60)
     withmod a b c d = (whenmod a b . within (c, d))

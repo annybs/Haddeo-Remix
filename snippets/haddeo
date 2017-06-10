@@ -2,7 +2,7 @@
 # name: haddeo
 # group: haddeo
 # key: haddeo
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 hsetup
 hdrum0

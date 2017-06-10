@@ -2,7 +2,7 @@
 # name: hduck
 # group: haddeo
 # key: hduck
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hduck
 d'fx2 $ mt $

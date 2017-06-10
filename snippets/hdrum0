@@ -2,7 +2,7 @@
 # name: hdrum0
 # group: haddeo
 # key: hdrum0
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hdrum0
 d'drum $ stack [

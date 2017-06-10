@@ -2,7 +2,7 @@
 # name: hic1
 # group: haddeo
 # key: hic1
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hic1
 d'wax $ slow 16 . striate 256 $ s "icarus"

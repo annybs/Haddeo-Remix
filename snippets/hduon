@@ -2,7 +2,7 @@
 # name: hduon
 # group: haddeo
 # key: hduon
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hduon
 d'fx3 $ 3 ~> n "[0 1]/8" # s "duon"

@@ -2,7 +2,7 @@
 # name: hnim1
 # group: haddeo
 # key: hnim1
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hnim1
 d'nim $

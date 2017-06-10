@@ -2,7 +2,7 @@
 # name: hic2
 # group: haddeo
 # key: hic2
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hic2
 d'wax $ retrig $ slow 20 $ sound "icarus:1"

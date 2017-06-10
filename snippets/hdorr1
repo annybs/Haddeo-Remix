@@ -2,7 +2,7 @@
 # name: hdorr1
 # group: haddeo
 # key: hdorr1
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hdorr1
 d'fx1 $ -- mt $ -- (1)

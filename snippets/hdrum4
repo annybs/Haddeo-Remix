@@ -2,7 +2,7 @@
 # name: hdrum4
 # group: haddeo
 # key: hdrum4
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hdrum4
 d'drum $ swing 0.14 $ -- mt $ -- (3)

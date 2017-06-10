@@ -2,7 +2,7 @@
 # name: hsnoo
 # group: haddeo
 # key: hsnoo
-# expand-env: (yas-indent-line 'fixed)
+# expand-env: (yas-indent-line fixed)
 # --
 -- @hsnoo
 d'fx3 $
